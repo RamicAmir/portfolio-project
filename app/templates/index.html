@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        {% for post in posts %}
+        <ul>
+        <li>{{ post.author }}</li>
+        <li>{{ post.title }}</li>
+        <li>{{ post.content }}</li>
+        <li>{{ post.date_posted }}</li>
+        </ul>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
