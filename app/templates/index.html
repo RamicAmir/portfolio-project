@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Index{% endblock %}
 
-{% block content %}
-    <div class="container">
-    <div class="page-header">
+{% block page_content %}
         {% for post in posts %}
         <ul>
         <li>{{ post.author }}</li>
@@ -12,7 +10,5 @@
         <li>{{ post.date_posted }}</li>
         </ul>
         {% endfor %}
-    </div>
-    </div>
 {% endblock %}
 
