@@ -23,13 +23,13 @@
       <!--Navbar Left Side-->
     <div class="collapse navbar-collapse" id="navbarToggle">
       <ul class="nav navbar-nav mr-auto">
-          <li role="presentation"><a class="nav-item nav-link" href="#">Home</a></li>
-          <li role="presentation"><a class="nav-item nav-link" href="#">About</a></li>
+          <li role="presentation"><a class="nav-item nav-link" href="{{ url_for('index') }}">Home</a></li>
+          <li role="presentation"><a class="nav-item nav-link" href="{{ url_for('about') }}">About</a></li>
       </ul>
         <!--Navbar Right Side-->
        <ul class="nav navbar-nav navbar-right">
-           <li role="presentation"><a class="nav-item nav-link" href="#"><span class="glyphicon glyphicon"></span></a></li>
-           <li role="presentation"><a class="nav-item nav-link" href="#"><span class="glyphicon glyphicon"></span></a></li>
+           <li role="presentation"><a class="nav-item nav-link" href="{{ url_for('signin') }}"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>
+           <li role="presentation"><a class="nav-item nav-link" href="{{ url_for('signup') }}"><span class="glyphicon glyphicon-user"></span> Sign up</a></li>
        </ul>
     </div>
   </div>
@@ -41,6 +41,15 @@
    <div class="container">
       <div class="row">
         <div class="col-md-8">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
          {% block page_content %} {% endblock page_content %}
         </div>
       </div>
