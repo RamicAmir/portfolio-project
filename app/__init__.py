@@ -12,13 +12,13 @@ posts = [
         'author': 'Amer Ahmed',
         'title': 'Blog Post 1',
         'content': 'First post content',
-        'date_posted': '2021-01-19'
+        'published': '2021-01-19'
     },
     {
         'author': 'Amir Ramic',
         'title': 'Blog Post 2',
         'content': 'Second post content',
-        'date_posted': '2021-01-19'
+        'published': '2021-01-19'
     }
 ]
 
