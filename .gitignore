@@ -173,7 +173,7 @@ cython_debug/
 .idea/modules.xml
 .idea/vcs.xml
 .idea/portfolio-project.iml
-
+.idea/
 # Icon must end with two \r
 Icon
 
