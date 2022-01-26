@@ -2,13 +2,15 @@
 {% block title %}Index{% endblock %}
 
 {% block page_content %}
-        {% for post in posts %}
-        <ul>
-        <li>{{ post.author }}</li>
-        <li>{{ post.title }}</li>
-        <li>{{ post.content }}</li>
-        <li>{{ post.published }}</li>
-        </ul>
-        {% endfor %}
+{% for post in posts %}
+    <article class="media content-section">
+    <div class="media-body">
+        <a class="mr-2" href="#">{{ post.author }}</a>
+        <small class="text-muted">{{ post.published  }}</small>
+    </div>
+    <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+    <p class="article-content">{{ post.content }}</p>
+    </article>
+  {% endfor %}
 {% endblock %}
 
