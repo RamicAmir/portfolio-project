@@ -7,6 +7,8 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'afd1849122d53a3cb9aea6af5b0b7a1625961faa1dd73f1c156d9573363ab268'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
 
@@ -21,6 +23,9 @@ class User(db.Model):
     password = db.Column(db.String(64), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
 
+    def __repr__(self):
+        return f"User('{self.username}', '{self.email}', '{self.profile}')"
+
 
 class Post(db.Model):
     __tablename__ = 'posts'
@@ -29,6 +34,9 @@ class Post(db.Model):
     published = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    def __repr__(self):
+        return f"Post('{self.title}', '{self.published}')"
 
 
 posts = [
