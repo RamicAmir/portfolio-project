@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app.forms.forms import RegistrationForm, LoginForm
 from app import app, db, bcrypt
 from app.models.models import User, Post
-from flask_login import login_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 
 posts = [
@@ -33,6 +33,8 @@ def about():
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hash_pw = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -46,6 +48,8 @@ def signup():
 
 @app.route("/signin", methods=['GET', 'POST'])
 def signin():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -56,6 +60,18 @@ def signin():
         else:
             flash('Your authentication is failed. Please check email or password and try again!', 'danger')
     return render_template('signin.html', form=form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
+@app.route('/account')
+@login_required
+def account():
+    return render_template('account.html')
 
 
 @app.errorhandler(404)
