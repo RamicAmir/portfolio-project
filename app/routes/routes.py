@@ -10,24 +10,9 @@ from flask_login import login_user, current_user, logout_user, login_required
 from app.models.models import User, Post
 
 
-posts = [
-    {
-        'author': 'Amer Ahmed',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'published': '2021-01-19'
-    },
-    {
-        'author': 'Amir Ramic',
-        'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'published': '2021-01-19'
-    }
-]
-
-
 @app.route("/")
 def index():
+    posts = Post.query.all()
     return render_template('index.html', posts=posts)
 
 
@@ -107,6 +92,7 @@ def account():
 
 
 @app.route('/post', methods=['GET', 'POST'])
+@login_required
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
@@ -118,7 +104,10 @@ def new_post():
     return render_template('posts/create_post.html', form=form, legend='New Post')
 
 
-
+@app.route('/post/<int:post_id>')
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('posts/post.html', post=post)
 
 
 @app.errorhandler(404)
