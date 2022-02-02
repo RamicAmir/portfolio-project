@@ -1,11 +1,13 @@
 import os
 import secrets
 from PIL import Image
-from flask import render_template, flash, redirect, url_for, request, current_app
-from app.forms.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from app import app, db, bcrypt
-from app.models.models import User, Post
+from flask import render_template, flash, redirect
+from flask import url_for, request, current_app
+from app.forms.forms import RegistrationForm, LoginForm
+from app.forms.forms import UpdateAccountForm, PostForm
 from flask_login import login_user, current_user, logout_user, login_required
+from app.models.models import User, Post
 
 
 posts = [
@@ -46,7 +48,7 @@ def signup():
         db.session.commit()
         flash('Your account has been created! You are now  able to sign in', 'success')
         return redirect(url_for('signin'))
-    return render_template('signup.html', form=form)
+    return render_template('auth/signup.html', form=form)
 
 
 @app.route("/signin", methods=['GET', 'POST'])
@@ -62,7 +64,7 @@ def signin():
             return redirect(next_page) if next_page else redirect(url_for('index'))
         else:
             flash('Your authentication is failed. Please check email or password and try again!', 'danger')
-    return render_template('signin.html', form=form)
+    return render_template('auth/signin.html', form=form)
 
 
 @app.route('/logout')
@@ -101,14 +103,29 @@ def account():
         form.username.data = current_user.username
         form.email.data = current_user.email
     profiles = url_for('static', filename='profile_pics/' + current_user.profile)
-    return render_template('account.html', profile=profiles, form=form)
+    return render_template('auth/account.html', profile=profiles, form=form)
+
+
+@app.route('/post', methods=['GET', 'POST'])
+def new_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post has been created!', 'success')
+        return redirect(url_for('index'))
+    return render_template('posts/create_post.html', form=form, legend='New Post')
+
+
+
 
 
 @app.errorhandler(404)
 def page_not_found(_error):
-    return render_template('404.html'), 404
+    return render_template('errors/404.html'), 404
 
 
 @app.errorhandler(500)
 def internal_server_error(_error):
-    return render_template('500.html'), 500
+    return render_template('errors/500.html'), 500
