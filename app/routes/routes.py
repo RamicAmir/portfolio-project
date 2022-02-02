@@ -71,7 +71,8 @@ def logout():
 @app.route('/account')
 @login_required
 def account():
-    return render_template('account.html')
+    profiles = url_for('static', filename='profile_pics/' + current_user.profile)
+    return render_template('account.html', profile=profiles)
 
 
 @app.errorhandler(404)
