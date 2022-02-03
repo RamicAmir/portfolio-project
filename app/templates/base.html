@@ -29,7 +29,7 @@
         <!--Navbar Right Side-->
        <ul class="nav navbar-nav navbar-right">
            {% if current_user.is_authenticated %}
-               <li role="presentation"><a class="nav-item nav-link" href="{{ url_for('new_post') }}"><span class="glyphicon glyphicon-log-user"></span> Post</a></li>
+               <li role="presentation"><a class="nav-item nav-link" href="{{ url_for('create_posts') }}"><span class="glyphicon glyphicon-log-user"></span> New Post</a></li>
                <li role="presentation"><a class="nav-item nav-link" href="{{ url_for('account') }}"><span class="glyphicon glyphicon-log-user"></span> Account</a></li>
                <li role="presentation"><a class="nav-item nav-link" href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
            {% else %}
@@ -45,18 +45,20 @@
 <!--Star Block content-->
 {% block content %}
    <div class="container">
+       <div class="container clear-top">
       <div class="row">
         <div class="col-md-8">
-            {% with messages = get_flashed_messages(with_categories=true) %}
+          {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
               {% for category, message in messages %}
                 <div class="alert alert-{{ category }}">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
                   {{ message }}
                 </div>
               {% endfor %}
             {% endif %}
           {% endwith %}
-         {% block page_content %} {% endblock page_content %}
+         {% block page_content %} {% endblock  %}
         </div>
       </div>
     </div>

@@ -91,9 +91,9 @@ def account():
     return render_template('auth/account.html', profile=profiles, form=form)
 
 
-@app.route('/post', methods=['GET', 'POST'])
+@app.route('/post/new', methods=['GET', 'POST'])
 @login_required
-def new_post():
+def create_posts():
     form = PostForm()
     if form.validate_on_submit():
         post = Post(title=form.title.data, content=form.content.data, author=current_user)
@@ -101,7 +101,7 @@ def new_post():
         db.session.commit()
         flash('Your post has been created!', 'success')
         return redirect(url_for('index'))
-    return render_template('posts/create_post.html', form=form, legend='New Post')
+    return render_template('posts/create_posts.html', form=form, legend='New Post')
 
 
 @app.route('/post/<int:post_id>')
