@@ -7,7 +7,6 @@
 html{
   position: relative;
   min-height: 100%;
-  min-width: 100%;
 }
 
 body {
@@ -117,8 +116,8 @@ a.article-title:hover {
 img {
   position: relative;
   border-radius: 50%;
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   margin: 0 auto -30px;
   border:1px #3c6382 solid;
   box-shadow:  0 0 5px #3c6382;
