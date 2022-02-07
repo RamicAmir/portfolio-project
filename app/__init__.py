@@ -1,29 +1,48 @@
-import os
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
+from config import Config
 
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'afd1849122d53a3cb9aea6af5b0b7a1625961faa1dd73f1c156d9573363ab268'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+bootstrap = Bootstrap()
+mail = Mail()
+bcrypt = Bcrypt()
+db = SQLAlchemy()
 
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-bootstrap = Bootstrap(app)
-login_manager = LoginManager(app)
-login_manager.login_view = 'signin'
+login_manager = LoginManager()
+login_manager.login_view = 'users.signin'
 login_manager.login_message_category = 'info'
 
-app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = os.environ.get('USER_EMAIL_ADDRESS')
-app.config['MAIL_PASSWORD'] = os.environ.get('USER_PASSWORD')
-mail = Mail(app)
 
-from app.routes import routes
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
+
+    db.init_app(app)
+    bcrypt.init_app(app)
+    bootstrap.init_app(app)
+    login_manager.init_app(app)
+    mail.init_app(app)
+
+    from app.users.roues.routes import users
+    app.register_blueprint(users)
+
+    from app.posts.roues.routes import posts
+    app.register_blueprint(posts)
+
+    from app.admin.routes.routes import admin
+    app.register_blueprint(admin)
+
+    from app.errors.errors.routes import errors
+    app.register_blueprint(errors)
+
+    from app.models.models import User, Post
+
+    @app.shell_context_processor
+    def make_shell_context():
+        return dict(db=db, User=User, Post=Post)
+    return app
+
