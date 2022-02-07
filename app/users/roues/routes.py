@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from app.users.forms.forms import RegistrationForm, LoginForm, SearchForm
 from app.users.forms.forms import RequestResetForm, ResetPasswordForm
-from app.users.utils.utils import save_picture, send_reset_email
+from app.controllers.controllers import save_picture, send_reset_email
 from app.users.forms.forms import UpdateAccountForm
 from flask import url_for, request
 from app.models.models import User, Post
