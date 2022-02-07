@@ -58,6 +58,12 @@ class PostForm(FlaskForm):
     submit = SubmitField('Post')
 
 
+class SearchForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    content = TextAreaField('Content', validators=[DataRequired()])
+    submit = SubmitField('Search')
+
+
 class RequestResetForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
     submit = SubmitField('Request Password Reset')

@@ -5,7 +5,7 @@ from app import app, db, bcrypt
 from flask import render_template, flash, redirect, abort
 from flask import url_for, request, current_app
 from app.forms.forms import RegistrationForm, LoginForm
-from app.forms.forms import UpdateAccountForm, PostForm
+from app.forms.forms import UpdateAccountForm, PostForm, SearchForm
 from app.forms.forms import RequestResetForm, ResetPasswordForm
 from flask_login import login_user, current_user, logout_user, login_required
 from app.models.models import User, Post
@@ -197,6 +197,18 @@ def reset_token(token):
         flash('Your password has been updated.', 'success')
         return redirect(url_for('signin'))
     return render_template('auth/reset_token.html', form=form)
+
+
+@app.route('/search', methods=['GET', 'POST'])
+@login_required
+def search_posts():
+    form = SearchForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)
+        flash('Your search has been found', 'success')
+        return redirect(url_for('index'))
+    return render_template('posts/search_posts.html', form=form, legend='Search Posts')
 
 
 @app.errorhandler(404)
