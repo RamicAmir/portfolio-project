@@ -22,16 +22,18 @@ body {
 h1, h2, h3, h4, h5, h6 {
   color: #444444;
 }
+
  .errors{
    font-size: 16px;
    font-weight: lighter;
    color: darkorange;
  }
+
 .blue-dark{
   min-height: 60px;
   border-top: 4px solid #3c6382;
   border-bottom: 4px solid #3c6382;
-  background-color: #0a3d62;
+  background-color:  #0a3d62;
   font-size: 14px;
   font-weight: lighter;
 }
@@ -137,4 +139,3 @@ footer{
   font-weight: lighter;
   clear:both;
 }
-

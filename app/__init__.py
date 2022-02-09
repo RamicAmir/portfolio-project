@@ -45,4 +45,3 @@ def create_app(config_class=Config):
     def make_shell_context():
         return dict(db=db, User=User, Post=Post)
     return app
-

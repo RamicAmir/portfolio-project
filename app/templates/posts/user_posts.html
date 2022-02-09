@@ -17,14 +17,14 @@
     </div>
   </article>
 {% endfor %}
-<!--TODO PAGINATE -->
-{% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
-{% if page_num %}
-  {% if posts.page == page_num %}
-    <a class="btn btn-info mb-4" href="{{ url_for('users.user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
+<!--Users_user_posts PAGINATE-->
+{% for page_number in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+{% if page_number %}
+  {% if posts.page == page_number %}
+    <a class="btn btn-info mb-4" href="{{ url_for('users.user_posts', username=user.username, page=page_number) }}">{{ page_number }}</a>
   {% else %}
      <button type="button" class="btn btn-outline-info mb-4">
-         <a  href="{{ url_for('users.user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
+         <a  href="{{ url_for('users.user_posts', username=user.username, page=page_number) }}">{{ page_number }}</a>
      </button>
   {% endif %}
 {% else %}

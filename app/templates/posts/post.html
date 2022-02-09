@@ -7,7 +7,7 @@
 + post.author.profile) }}" alt="Profile">
     <div class="media-body">
         <div class="article-metadata">
-            <!--TODO USERNAME POST -->
+            <!--users.user_posts-->
             <a class="mr-2" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{
                 post.author.username }}</a>
             <small class="text-muted">{{ post.published.strftime('%Y-%m-%d') }}</small>

@@ -1,10 +1,10 @@
-from flask import render_template, flash, redirect, Blueprint
-from flask_login import login_user, current_user, logout_user, login_required
-from app.users.forms.forms import RegistrationForm, LoginForm, SearchForm
-from app.users.forms.forms import RequestResetForm, ResetPasswordForm
-from app.controllers.controllers import save_picture, send_reset_email
-from app.users.forms.forms import UpdateAccountForm
-from flask import url_for, request
+from flask import render_template, url_for, Blueprint
+from flask import request, flash, redirect
+from flask_login import login_user, logout_user
+from flask_login import current_user, login_required
+from app.users.forms.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from app.users.forms.forms import RequestResetForm, ResetPasswordForm, SearchForm
+from app.users.utils.utils import save_picture, send_reset_email
 from app.models.models import User, Post
 from app import db, bcrypt
 
@@ -105,7 +105,7 @@ def user_posts(username):
     user = User.query.filter_by(username=username). first_or_404()
     posts = Post.query.filter_by(author=user)\
         .order_by(Post.published.desc())\
-        .paginate(page=page, per_page=5)
+        .paginate(page=page, per_page=2)
     return render_template('posts/user_posts.html', posts=posts, user=user)
 
 
