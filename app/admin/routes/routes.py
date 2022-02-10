@@ -15,3 +15,18 @@ def index():
 @admin.route("/about")
 def about():
     return render_template('about.html')
+
+
+@admin.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+
+@admin.route('/projects')
+def projects():
+    return render_template('profile/projects.html')
+
+
+@admin.route('/resume')
+def resume():
+    return render_template('profile/resume.html')
