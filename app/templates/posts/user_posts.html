@@ -18,7 +18,7 @@
   </article>
 {% endfor %}
 <!--Users_user_posts PAGINATE-->
-{% for page_number in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+{% for page_number in posts.iter_pages(left_edge=2, left_current=2, right_current=5, right_edge=2) %}
 {% if page_number %}
   {% if posts.page == page_number %}
     <a class="btn btn-info mb-4" href="{{ url_for('users.user_posts', username=user.username, page=page_number) }}">{{ page_number }}</a>

@@ -5,7 +5,6 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 
-# Base class
 class Config:
     DEBUG = False
     TESTING = False
@@ -20,6 +19,8 @@ class Config:
     SSL_REDIRECT = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    STATIC_FOLDER = 'static'
+    TEMPLATES_FOLDER = 'templates'
 
     @staticmethod
     def init_app(app):
@@ -27,17 +28,23 @@ class Config:
 
 
 class DevelopmentConfig(Config):
+    FLASK_ENV = 'development'
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URI') or 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
 
 
 class TestingConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URI') or 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or 'sqlite:///'
+    WTF_CSRF_ENABLED = False
 
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URI') or 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
+    FLASK_ENV = 'production'
+    DEBUG = False
+    TESTING = False
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
 
 
 class DockerConfig(ProductionConfig):
@@ -45,6 +52,7 @@ class DockerConfig(ProductionConfig):
     def init_app(cls, app):
         ProductionConfig.init_app(app)
 
+        # log to stderr
         import logging
         from logging import StreamHandler
         file_handler = StreamHandler()
@@ -57,11 +65,12 @@ class UnixConfig(ProductionConfig):
     def init_app(cls, app):
         ProductionConfig.init_app(app)
 
+        # log to syslog
         import logging
         from logging.handlers import SysLogHandler
-        file_handler = SysLogHandler()
-        file_handler.setLevel(logging.INFO)
-        app.logger.addHandler(file_handler)
+        syslog_handler = SysLogHandler()
+        syslog_handler.setLevel(logging.INFO)
+        app.logger.addHandler(syslog_handler)
 
 
 config = {
