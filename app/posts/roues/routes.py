@@ -20,6 +20,7 @@ posts = Blueprint('posts', __name__)
 @posts.route('/post/new', methods=['GET', 'POST'])
 @login_required
 def create_posts():
+    # User can create posts
     form = PostForm()
     if form.validate_on_submit():
         post = Post(title=form.title.data, content=form.content.data, author=current_user)
@@ -32,6 +33,7 @@ def create_posts():
 
 @posts.route('/post/<int:post_id>')
 def post(post_id):
+    # User id
     post = Post.query.get_or_404(post_id)
     return render_template('posts/post.html', post=post)
 
@@ -39,6 +41,7 @@ def post(post_id):
 @posts.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
 @login_required
 def update_posts(post_id):
+    # User can update posts
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
@@ -58,6 +61,7 @@ def update_posts(post_id):
 @posts.route("/post/<int:post_id>/delete", methods=['POST'])
 @login_required
 def delete_posts(post_id):
+    # User can delete posts
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
