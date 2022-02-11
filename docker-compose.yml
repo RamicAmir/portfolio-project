@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  db:
+    image: nouchka/sqlite3:latest
+    volumes:
+      - ./db/:/root/db/
+    stdin_open: true
+    tty: true
+
+  flask:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: flask
+    command: gunicorn --bind 0.0.0.0:8000 --workers 4 "app:create_app()"
+    volumes:
+      - ./:/var/www
+    networks:
+      my-network:
+        aliases:
+          - flask-app
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:1.20
+    container_name: nginx
+    volumes:
+      - ./:/var/www
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - '80:80'
+    networks:
+      - my-network
+    depends_on:
+      - flask
+networks:
+  my-network:
+

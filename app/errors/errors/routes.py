@@ -1,3 +1,11 @@
+"""
+The module for Errors Routes.
+Amer Ahmed
+Amir Ramic
+Supervisor: Joakim Wassberg
+Version 0.0
+"""
+
 from flask import render_template, request, jsonify, Blueprint
 
 
@@ -6,6 +14,7 @@ errors = Blueprint('errors', __name__)
 
 @errors.app_errorhandler(403)
 def forbidden(e):
+    # Forbidden to access witout auhen
     if request.accept_mimetypes.accept_json and \
             not request.accept_mimetypes.accept_html:
         response = jsonify({'error': 'forbidden'})
@@ -16,6 +25,7 @@ def forbidden(e):
 
 @errors.app_errorhandler(404)
 def page_not_found(e):
+    # Returns 404 if page not found
     if request.accept_mimetypes.accept_json and \
             not request.accept_mimetypes.accept_html:
         response = jsonify({'error': 'not found'})
@@ -26,6 +36,7 @@ def page_not_found(e):
 
 @errors.app_errorhandler(500)
 def internal_server_error(e):
+    """Return 500 if server no response or internal errors"""
     if request.accept_mimetypes.accept_json and \
             not request.accept_mimetypes.accept_html:
         response = jsonify({'error': 'internal server error'})

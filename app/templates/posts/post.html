@@ -2,17 +2,20 @@
 {% block title %}Posted{% endblock %}
 
 {% block page_content %}
+    <!--Started Article-->
 <article class="media content-section">
+    <!--User profile image-->
     <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'
 + post.author.profile) }}" alt="Profile">
     <div class="media-body">
         <div class="article-metadata">
-            <!--users.user_posts-->
+            <!--users.user_posts or username as author-->
             <a class="mr-2" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{
                 post.author.username }}</a>
             <small class="text-muted">{{ post.published.strftime('%Y-%m-%d') }}</small>
             {% if post.author == current_user %}
             <div>
+                <!--USER can update posts and delete-->
                 <a class="btn btn-info btn-sm mt-1 mb-1"
                     href="{{ url_for('posts.update_posts', post_id=post.id) }}">Update</a>
                 <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal"
@@ -24,7 +27,9 @@
         <p class="article-content">{{ post.content }}</p>
     </div>
 </article>
-<!-- Modal -->
+    <!--End Article-->
+
+<!-- Modal for Delete posts-->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">

@@ -1,3 +1,11 @@
+"""
+The module for User Routes.
+Amer Ahmed
+Amir Ramic
+Supervisor: Joakim Wassberg
+Version 0.0.1
+"""
+
 from flask import render_template, url_for, Blueprint
 from flask import request, flash, redirect
 from flask_login import login_user, logout_user
@@ -5,7 +13,7 @@ from flask_login import current_user, login_required
 from app.users.forms.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from app.users.forms.forms import RequestResetForm, ResetPasswordForm, SearchForm
 from app.users.utils.utils import save_picture, send_reset_email
-from app.models.models import User, Post
+from app.models.models.models import User, Post
 from app import db, bcrypt
 
 users = Blueprint('users', __name__)
@@ -13,6 +21,7 @@ users = Blueprint('users', __name__)
 
 @users.route("/signup", methods=['GET', 'POST'])
 def signup():
+    # User can sign up
     if current_user.is_authenticated:
         return redirect(url_for('admin.index'))
     form = RegistrationForm()
@@ -28,6 +37,7 @@ def signup():
 
 @users.route("/signin", methods=['GET', 'POST'])
 def signin():
+    # User can sign in
     if current_user.is_authenticated:
         return redirect(url_for('admin.index'))
     form = LoginForm()
@@ -44,6 +54,7 @@ def signin():
 
 @users.route('/logout')
 def logout():
+    # User can log out
     logout_user()
     return redirect(url_for('admin.index'))
 
@@ -51,6 +62,7 @@ def logout():
 @users.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
+    # User account with auth
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
@@ -70,6 +82,7 @@ def account():
 
 @users.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
+    # User reset_request
     if current_user.is_authenticated:
         return redirect(url_for('admin.index'))
     form = RequestResetForm()
@@ -83,6 +96,7 @@ def reset_request():
 
 @users.route("/reset_password/<token>", methods=['GET', 'POST'])
 def reset_token(token):
+    # User verify token reset
     if current_user.is_authenticated:
         return redirect(url_for('admin.index'))
     user = User.verify_reset_token(token)
@@ -101,6 +115,7 @@ def reset_token(token):
 
 @users.route('/user/<string:username>')
 def user_posts(username):
+    # User_posts
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username). first_or_404()
     posts = Post.query.filter_by(author=user)\
@@ -112,6 +127,7 @@ def user_posts(username):
 @users.route('/search', methods=['GET', 'POST'])
 @login_required
 def search_posts():
+    # User can search posts
     form = SearchForm()
     if form.validate_on_submit():
         post = Post(title=form.title.data, content=form.content.data, author=current_user)

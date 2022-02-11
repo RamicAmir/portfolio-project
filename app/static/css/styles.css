@@ -1,0 +1,70 @@
+@import url(http://fonts.googleapis.com/css?family=Oswald:700,400);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+.header {
+	display: block;
+	height: 140px;
+	border-bottom: 5px solid #000;
+	margin-bottom: 30px;
+}
+
+.head {
+	font-weight: normal;
+	margin: 28px 0 0 0;
+	float: left;
+	width: 225px;
+	height: 90px;
+	background-image: url('../img/maker-logo.png');
+	background-repeat: no-repeat;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.head2 {
+	font-size: 2.4em;
+	margin: 0.7em 0 1.7em 0;
+	padding: 0;
+  color: #3fbb8a;
+	line-height: 1em;
+	letter-spacing: -0.06em;
+}
+
+.head3 {
+	margin: 0;
+	font-size: 1.6em;
+	padding: 5px;
+	color: #3fbb8a;
+	font-family: oswald, arial, sans-serif;
+}
+
+.third {
+  border: 1px solid #dddddd; /* Gray border */
+  border-radius: 4px;  /* Rounded border */
+  padding: 5px; /* Some padding */
+  width: 230px;
+  float: left;
+  text-align: center;
+  margin: 5px 5px 10px 10px;
+}
+
+#conten p {border-right: 1px solid #999; }
+
+.third p {
+  padding: 0 20px 0 20px;
+  margin: 40px 0 20px 0;
+  text-align: left;
+  line-height: 1.4em;
+}
+
+
+.intro p {
+  margin: 0 0 0 0;
+  padding: 0 20px 20px 0;}
+
+
+.half {
+  padding-top: 60px;
+  width: 480px;
+  float: left;
+  text-align: center;}

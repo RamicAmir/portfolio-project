@@ -2,13 +2,17 @@
 {% block title %}User_posts{% endblock %}
 
 {% block page_content %}
+    <!--Created by user total posts-->
 <h2 class="md-3">Created by {{ user.username }} ({{ posts.total }}) posts</h2>
+    <!--User's post-->
 {% for post in posts.items %}
+    <!--Started article-->
 <article class="media content-section">
+    <!--User's profile-->
     <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.profile) }}" alt="Profile">
     <div class="media-body">
         <div class="article-metadata">
-            <!--TODO USERNAME POST -->
+        <!--Username, Content, Title, User_id-->
         <a class="mr-2" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
         <small class="text-muted">{{ post.published.strftime('%Y-%m-%d') }}</small>
         </div>
@@ -16,9 +20,10 @@
        <p class="article-content">{{ post.content }}</p>
     </div>
   </article>
+    <!--End article-->
 {% endfor %}
 <!--Users_user_posts PAGINATE-->
-{% for page_number in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+{% for page_number in posts.iter_pages(left_edge=2, left_current=2, right_current=5, right_edge=2) %}
 {% if page_number %}
   {% if posts.page == page_number %}
     <a class="btn btn-info mb-4" href="{{ url_for('users.user_posts', username=user.username, page=page_number) }}">{{ page_number }}</a>

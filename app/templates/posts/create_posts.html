@@ -3,6 +3,7 @@
 
 {% block page_content %}
 <div class="content-section">
+    <!--Started Forms-->
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
@@ -40,5 +41,6 @@
             {{ form.submit(class="btn btn-primary") }}
         </div>
     </form>
+    <!--End Forms-->
     </div>
 {% endblock %}

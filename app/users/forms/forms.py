@@ -1,3 +1,11 @@
+"""
+The module for user RegistrationForm.
+Amer Ahmed
+Amir Ramic
+Supervisor: Joakim Wassberg
+Version 0.0.1
+"""
+
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
 from flask_login import current_user
@@ -5,10 +13,11 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms import BooleanField, FileField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email
 from wtforms.validators import EqualTo, ValidationError
-from app.models.models import User
+from app.models.models.models import User
 
 
 class RegistrationForm(FlaskForm):
+    """User registrationForm"""
     username = StringField('Username', validators=[DataRequired(), Length(min=4, max=64)])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6, max=64)])
@@ -27,6 +36,7 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
+    """User LoginForm"""
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
@@ -34,6 +44,7 @@ class LoginForm(FlaskForm):
 
 
 class UpdateAccountForm(FlaskForm):
+    """User Updated Account"""
     username = StringField('Username', validators=[DataRequired(), Length(min=4, max=64)])
     email = StringField('Email', validators=[DataRequired(), Email()])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'jpeg', 'png'])])
@@ -53,6 +64,7 @@ class UpdateAccountForm(FlaskForm):
 
 
 class RequestResetForm(FlaskForm):
+    """User Request Reset Password"""
     email = StringField('Email', validators=[DataRequired()])
     submit = SubmitField('Request Password Reset')
 
@@ -63,12 +75,14 @@ class RequestResetForm(FlaskForm):
 
 
 class ResetPasswordForm(FlaskForm):
+    """User Confirm Reset Password"""
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6, max=64)])
     confirm = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset Password')
 
 
 class SearchForm(FlaskForm):
+    """User search form posts"""
     title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Search')

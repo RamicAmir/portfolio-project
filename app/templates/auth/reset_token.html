@@ -1,8 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Reset Password{% endblock %}
+{% block title %}Reset Password Token{% endblock %}
 
 {% block page_content %}
 <div class="content-section">
+    <!--Started Forms-->
 <form method="POST" action="">
 {{ form.hidden_tag() }}
 <fieldset class="form-group">
@@ -12,6 +13,7 @@
     {% if form.password.errors %}
     {{ form.password(class="form-control form-control-lg is-invalid") }}
         <div class="invalid-feedback">
+            <!-- Handles password errors-->
             {% for error in form.password.errors %}
                 <span>{{ error }}</span>
             {% endfor %}
@@ -25,6 +27,7 @@
     {% if form.confirm.errors %}
     {{ form.confirm(class="form-control form-control-lg is-invalid") }}
         <div class="invalid-feedback">
+            <!-- Handles confirm password errors-->
             {% for error in form.confirm.errors %}
                 <span>{{ error }}</span>
             {% endfor %}
@@ -38,5 +41,6 @@
     {{ form.submit(class="btn btn-primary") }}
 </div>
 </form>
+    <!--End Forms-->
 </div>
 {% endblock %}

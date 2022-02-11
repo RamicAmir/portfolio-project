@@ -3,6 +3,7 @@
 
 {% block page_content %}
 <div class="content-section">
+<!--Started Forms-->
 <form method="POST" action="">
 {{ form.hidden_tag() }}
 <fieldset class="form-group">
@@ -12,6 +13,7 @@
     {% if form.username.errors %}
     {{ form.username(class="form-control form-control-lg is-invalid") }}
         <div class="invalid-feedback">
+            <!-- Handles username errors-->
             {% for error in form.username.errors %}
                 <span>{{ error }}</span>
             {% endfor %}
@@ -25,6 +27,7 @@
     {% if form.email.errors %}
     {{ form.email(class="form-control form-control-lg is-invalid") }}
         <div class="invalid-feedback">
+            <!-- Handles email errors-->
             {% for error in form.email.errors %}
                 <span>{{ error }}</span>
             {% endfor %}
@@ -38,6 +41,7 @@
     {% if form.password.errors %}
     {{ form.password(class="form-control form-control-lg is-invalid") }}
         <div class="invalid-feedback">
+            <!-- Handles password errors-->
             {% for error in form.password.errors %}
                 <span>{{ error }}</span>
             {% endfor %}
@@ -51,6 +55,7 @@
     {% if form.confirm.errors %}
     {{ form.confirm(class="form-control form-control-lg is-invalid") }}
         <div class="invalid-feedback">
+            <!-- Handles confirm password errors-->
             {% for error in form.confirm.errors %}
                 <span>{{ error }}</span>
             {% endfor %}
@@ -64,6 +69,8 @@
     {{ form.submit(class="btn btn-primary") }}
 </div>
 </form>
+<!--En Forms-->
+
 <div class="border-top pt-3">
 <small class="text-muted">
 Already Have An Account <a class="ml-2" href="{{ url_for('users.signin') }}">Sign In</a>
