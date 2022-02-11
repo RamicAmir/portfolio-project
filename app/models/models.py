@@ -1,3 +1,11 @@
+"""
+The module for User and Post.
+Amer Ahmed
+Amir Ramic
+Supervisor: Joakim Wassberg
+Version 0.0
+"""
+
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from datetime import datetime
 from flask import current_app

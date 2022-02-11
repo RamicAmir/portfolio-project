@@ -1,3 +1,11 @@
+"""
+The module for User Routes.
+Amer Ahmed
+Amir Ramic
+Supervisor: Joakim Wassberg
+Version 0.0.1
+"""
+
 from flask import render_template, url_for, Blueprint
 from flask import request, flash, redirect
 from flask_login import login_user, logout_user

@@ -1,3 +1,11 @@
+"""
+The module for Errors Routes.
+Amer Ahmed
+Amir Ramic
+Supervisor: Joakim Wassberg
+Version 0.0
+"""
+
 from flask import render_template, request, jsonify, Blueprint
 
 

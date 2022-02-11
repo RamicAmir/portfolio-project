@@ -1,3 +1,11 @@
+"""
+The module for User Utils.
+Amer Ahmed
+Amir Ramic
+Supervisor: Joakim Wassberg
+Version 0.0.1
+"""
+
 import os
 import secrets
 from PIL import Image

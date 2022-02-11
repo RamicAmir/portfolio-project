@@ -11,7 +11,7 @@ docker-compose build
 ## Run to rebuild
 ```
 docker-compose up --build
-docker-compose up -d --build 
+docker-compose up -d  
 ```
 ## Run to stop 
 ```

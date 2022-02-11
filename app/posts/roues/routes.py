@@ -1,3 +1,11 @@
+"""
+The module for Posts Routes.
+Amer Ahmed
+Amir Ramic
+Supervisor: Joakim Wassberg
+Version 0.0
+"""
+
 from flask import render_template, abort, Blueprint
 from flask import flash, redirect, url_for, request
 from flask_login import current_user, login_required
@@ -57,5 +65,3 @@ def delete_posts(post_id):
     db.session.commit()
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('admin.index'))
-
-

@@ -1,3 +1,11 @@
+"""
+The module for user RegistrationForm.
+Amer Ahmed
+Amir Ramic
+Supervisor: Joakim Wassberg
+Version 0.0.1
+"""
+
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
 from flask_login import current_user

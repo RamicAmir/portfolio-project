@@ -1,3 +1,12 @@
+"""
+The module for Posts Form.
+Amer Ahmed
+Amir Ramic
+Supervisor: Joakim Wassberg
+Version 0.0
+"""
+
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms import TextAreaField
@@ -8,5 +17,3 @@ class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Post')
-
-
