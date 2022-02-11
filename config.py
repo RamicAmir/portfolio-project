@@ -1,3 +1,11 @@
+"""
+This is config for Flask-applications!
+Amer Ahmed
+Amir Ramic
+Supervisor: Joakim Wassberg
+Version 0.0.1
+"""
+
 import os
 from dotenv import load_dotenv
 
@@ -34,12 +42,6 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
 
 
-class TestingConfig(Config):
-    TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or 'sqlite:///'
-    WTF_CSRF_ENABLED = False
-
-
 class ProductionConfig(Config):
     FLASK_ENV = 'production'
     DEBUG = False
@@ -60,25 +62,10 @@ class DockerConfig(ProductionConfig):
         app.logger.addHandler(file_handler)
 
 
-class UnixConfig(ProductionConfig):
-    @classmethod
-    def init_app(cls, app):
-        ProductionConfig.init_app(app)
-
-        # log to syslog
-        import logging
-        from logging.handlers import SysLogHandler
-        syslog_handler = SysLogHandler()
-        syslog_handler.setLevel(logging.INFO)
-        app.logger.addHandler(syslog_handler)
-
-
 config = {
     'development': DevelopmentConfig,
-    'testing': TestingConfig,
     'production': ProductionConfig,
     'docker': DockerConfig,
-    'unix': UnixConfig,
 
     'default': DevelopmentConfig
 }
