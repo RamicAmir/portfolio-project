@@ -7,7 +7,7 @@ Version 0.0
 """
 
 from flask import render_template, request, Blueprint
-from app.models.models import Post
+from app.models.models.models import Post
 
 
 admin = Blueprint('admin', __name__)

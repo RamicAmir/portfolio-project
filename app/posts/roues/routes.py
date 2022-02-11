@@ -10,7 +10,7 @@ from flask import render_template, abort, Blueprint
 from flask import flash, redirect, url_for, request
 from flask_login import current_user, login_required
 from app.posts.forms.forms import PostForm
-from app.models.models import Post
+from app.models.models.models import Post
 from app import db
 
 

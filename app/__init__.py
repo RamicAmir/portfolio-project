@@ -39,7 +39,7 @@ def create_app(config_class=Config):
     from app.errors.errors.routes import errors
     app.register_blueprint(errors)
 
-    from app.models.models import User, Post
+    from app.models.models.models import User, Post
 
     @app.shell_context_processor
     def make_shell_context():

@@ -13,11 +13,11 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms import BooleanField, FileField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email
 from wtforms.validators import EqualTo, ValidationError
-from app.models.models import User
+from app.models.models.models import User
 
 
 class RegistrationForm(FlaskForm):
-    """User registerationForm"""
+    """User registrationForm"""
     username = StringField('Username', validators=[DataRequired(), Length(min=4, max=64)])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6, max=64)])

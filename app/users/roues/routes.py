@@ -13,7 +13,7 @@ from flask_login import current_user, login_required
 from app.users.forms.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from app.users.forms.forms import RequestResetForm, ResetPasswordForm, SearchForm
 from app.users.utils.utils import save_picture, send_reset_email
-from app.models.models import User, Post
+from app.models.models.models import User, Post
 from app import db, bcrypt
 
 users = Blueprint('users', __name__)
@@ -21,7 +21,7 @@ users = Blueprint('users', __name__)
 
 @users.route("/signup", methods=['GET', 'POST'])
 def signup():
-    # User can signup
+    # User can sign up
     if current_user.is_authenticated:
         return redirect(url_for('admin.index'))
     form = RegistrationForm()
@@ -37,7 +37,7 @@ def signup():
 
 @users.route("/signin", methods=['GET', 'POST'])
 def signin():
-    # User can signin
+    # User can sign in
     if current_user.is_authenticated:
         return redirect(url_for('admin.index'))
     form = LoginForm()
@@ -54,7 +54,7 @@ def signin():
 
 @users.route('/logout')
 def logout():
-    # User can logout
+    # User can log out
     logout_user()
     return redirect(url_for('admin.index'))
 
@@ -62,7 +62,7 @@ def logout():
 @users.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
-    # User account with auht
+    # User account with auth
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
