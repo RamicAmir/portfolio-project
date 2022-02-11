@@ -21,6 +21,7 @@ users = Blueprint('users', __name__)
 
 @users.route("/signup", methods=['GET', 'POST'])
 def signup():
+    # User can signup
     if current_user.is_authenticated:
         return redirect(url_for('admin.index'))
     form = RegistrationForm()
@@ -36,6 +37,7 @@ def signup():
 
 @users.route("/signin", methods=['GET', 'POST'])
 def signin():
+    # User can signin
     if current_user.is_authenticated:
         return redirect(url_for('admin.index'))
     form = LoginForm()
@@ -52,6 +54,7 @@ def signin():
 
 @users.route('/logout')
 def logout():
+    # User can logout
     logout_user()
     return redirect(url_for('admin.index'))
 
@@ -59,6 +62,7 @@ def logout():
 @users.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
+    # User account with auht
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
@@ -78,6 +82,7 @@ def account():
 
 @users.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
+    # User reset_request
     if current_user.is_authenticated:
         return redirect(url_for('admin.index'))
     form = RequestResetForm()
@@ -91,6 +96,7 @@ def reset_request():
 
 @users.route("/reset_password/<token>", methods=['GET', 'POST'])
 def reset_token(token):
+    # User verify token reset
     if current_user.is_authenticated:
         return redirect(url_for('admin.index'))
     user = User.verify_reset_token(token)
@@ -109,6 +115,7 @@ def reset_token(token):
 
 @users.route('/user/<string:username>')
 def user_posts(username):
+    # User_posts
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username). first_or_404()
     posts = Post.query.filter_by(author=user)\
@@ -120,6 +127,7 @@ def user_posts(username):
 @users.route('/search', methods=['GET', 'POST'])
 @login_required
 def search_posts():
+    # User can search posts
     form = SearchForm()
     if form.validate_on_submit():
         post = Post(title=form.title.data, content=form.content.data, author=current_user)
