@@ -22,5 +22,3 @@ docker-compose stop
 docker-compose rm
 docker-compose down
 ```
-
-System_Application
