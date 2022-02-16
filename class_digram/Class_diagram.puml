@@ -1,0 +1,105 @@
+@startuml Class
+Scale 1.4
+!define DARKBLUE
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+package App{
+class Admin{
+    + index()
+    + About()
+    + Contact()
+    + Project()
+    + Resume()
+}
+
+
+class Errors {
+    # forbidden()
+    # Page_Not_found()
+    # server_errors()
+}
+class User{
+    + UserID: GUid
+    + Email: string
+    + Profile: string
+    # Password: string
+    + relationship()
+    # Get_reset_token()
+    # Verify_reset_token()
+}
+
+class Post{
+    + PostID:String
+    + Title: String
+    + Published: Date
+    + conten: String
+}
+User "1" *-- "n" Post
+
+class PostForm{
+    + Title:  String
+    + Content: String
+    + Submit: Submit
+}
+class SearchForm{
+    + Title: String
+    + Conten: TextArea
+    + Submit: Submit
+}
+
+class Posts {
+    + Create_posts()
+    + Post()
+    + Update_posts()
+    + Delete_posts()
+}
+class RegistrationForm{
+    + Username: String
+    + Email: String
+    # Password: Password
+    # Confirm: Password
+    + Submit: Submit
+    # Validate_username()
+    # Validate_email()
+}
+
+class LoginForm{
+    + Email: Stringfield
+    # Password: PasswordField
+    + Remember: BooleanField
+    + Submit: SubmitField
+}
+
+class UpdateAccountForm {
+    + Username: String
+    + Email: String
+    + Picture: File
+    + Submit: Submit
+    # Validate_username()
+    # Validate_email()
+}
+
+class RequestResetForm{
+    + Email: String
+    + Submit: Submit
+    # Validate_email()
+}
+class ResetPasswordForm{
+    # Password: Password
+    # Confirm: Password
+    + Submit: Submit
+}
+ RegistrationForm o-- LoginForm
+ LoginForm o-- UpdateAccountForm
+ UpdateAccountForm o-- RequestResetForm
+ RequestResetForm o--  ResetPasswordForm
+ ResetPasswordForm o--  PostForm
+ Posts --o Post
+ Post o-- SearchForm
+ User o-- Admin
+ Posts --o Errors
+ User o-- RegistrationForm
+ Admin --o Posts
+ Admin o-- SearchForm
+}
+
+@enduml

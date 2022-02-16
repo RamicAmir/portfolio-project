@@ -1,25 +1,31 @@
 # Portfolio-project
 
-## Run to config
+## Run To config
 ```
 docker-compose config
 ```
-## Run to build
+## Run To build
 ```
 docker-compose build
 ```
-## Run to rebuild
+## Run To rebuild
 ```
 docker-compose up --build
 docker-compose up -d  
 ```
-## Run to stop 
+## Run To stop 
 ```
 docker-compose stop
 ```
-## Run to remove
+## Run To remove
 ```
 docker-compose rm
 docker-compose down
 ```
 
+## Image for Plantuml 
+```
+Plantuml Class Diagram
+```
+
+![Class Diagram](class_digram/Class.png)
