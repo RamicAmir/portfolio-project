@@ -120,7 +120,7 @@ def user_posts(username):
     user = User.query.filter_by(username=username). first_or_404()
     posts = Post.query.filter_by(author=user)\
         .order_by(Post.published.desc())\
-        .paginate(page=page, per_page=2)
+        .paginate(page=page, per_page=5)
     return render_template('posts/user_posts.html', posts=posts, user=user)
 
 
