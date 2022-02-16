@@ -15,7 +15,6 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 class Config:
     DEBUG = False
-    TESTING = False
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
     MAIL_SERVER = os.environ.get('MAIL_SERVER', 'smtp.googlemail.com')
     MAIL_PORT = int(os.environ.get('MAIL_PORT', '587'))
@@ -38,14 +37,12 @@ class Config:
 class DevelopmentConfig(Config):
     FLASK_ENV = 'development'
     DEBUG = True
-    TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
 
 
 class ProductionConfig(Config):
     FLASK_ENV = 'production'
     DEBUG = False
-    TESTING = False
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
 
 
